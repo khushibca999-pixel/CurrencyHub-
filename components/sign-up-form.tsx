@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -25,90 +26,130 @@ export function SignUpForm({
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
-  const handleSignUp = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSignUp = async (
+    e: React.SubmitEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
-    const supabase = createClient();
-    setIsLoading(true);
+
     setError(null);
 
     if (password !== repeatPassword) {
       setError("Passwords do not match");
-      setIsLoading(false);
       return;
     }
+
+    const supabase = createClient();
+    setIsLoading(true);
 
     try {
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
+          emailRedirectTo: `${window.location.origin}/auth/confirm`,
         },
       });
+
       if (error) throw error;
+
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(
+        error instanceof Error ? error.message : "An error occurred"
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
+    <div
+      className={cn("auth-form-shell", className)}
+      {...props}
+    >
+      <Card className="auth-card">
+        <CardHeader className="auth-card-header">
+          <CardTitle className="auth-title">
+            Create your account
+          </CardTitle>
+
+          <CardDescription className="auth-description">
+            Join CurrencyHub and manage your currencies in one place.
+          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSignUp}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+
+        <CardContent className="auth-card-content">
+          <form onSubmit={handleSignUp} className="auth-form">
+            <div className="auth-fields">
+              <div className="auth-field">
+                <Label htmlFor="email" className="auth-label">
+                  Email address
+                </Label>
+
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
                   required
+                  className="auth-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                </div>
+
+              <div className="auth-field">
+                <Label htmlFor="password" className="auth-label">
+                  Password
+                </Label>
+
                 <Input
                   id="password"
                   type="password"
+                  placeholder="Create a password"
                   required
+                  className="auth-input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="repeat-password">Repeat Password</Label>
-                </div>
+
+              <div className="auth-field">
+                <Label htmlFor="repeat-password" className="auth-label">
+                  Confirm password
+                </Label>
+
                 <Input
                   id="repeat-password"
                   type="password"
+                  placeholder="Enter your password again"
                   required
+                  className="auth-input"
                   value={repeatPassword}
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating an account..." : "Sign up"}
-              </Button>
+
+              {error && (
+                <p className="auth-message auth-error">
+                  {error}
+                </p>
+              )}
             </div>
-            <div className="mt-4 text-center text-sm">
+
+            <Button
+              type="submit"
+              className="auth-submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Creating your account..." : "Create account"}
+            </Button>
+
+            <div className="auth-switch">
               Already have an account?{" "}
-              <Link href="/auth/login" className="underline underline-offset-4">
+              <Link href="/auth/login" className="auth-link">
                 Login
               </Link>
             </div>

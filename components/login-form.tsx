@@ -48,20 +48,21 @@ export function LoginForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
+    <div className={cn("auth-form-shell", className)} {...props}>
+      <Card className="auth-card">
+        <CardHeader className="auth-card-header">
+          <CardTitle className="auth-title">Login</CardTitle>
+          <CardDescription className="auth-description">
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-6">
+        <CardContent className="auth-card-content">
+          <form onSubmit={handleLogin} className="auth-form">
+            <div className="auth-fields">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="auth-label">Email</Label>
                 <Input
+                  className="auth-input"
                   id="email"
                   type="email"
                   placeholder="m@example.com"
@@ -71,16 +72,20 @@ export function LoginForm({
                 />
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                <div className="auth-password-heading">
+                  <Label htmlFor="password" className="auth-label">
+                    Password
+                  </Label>
+
                   <Link
                     href="/auth/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="auth-link"
                   >
                     Forgot your password?
                   </Link>
                 </div>
                 <Input
+                  className="auth-input"
                   id="password"
                   type="password"
                   required
@@ -88,16 +93,20 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              {error && <p className="auth-message auth-error">{error}</p>}
+              <Button
+                type="submit"
+                className="auth-submit"
+                disabled={isLoading}
+              >
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className="auth-switch">
               Don&apos;t have an account?{" "}
               <Link
                 href="/auth/sign-up"
-                className="underline underline-offset-4"
+                className="auth-link"
               >
                 Sign up
               </Link>

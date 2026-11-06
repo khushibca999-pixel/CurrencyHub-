@@ -1,110 +1,142 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# CurrencyHub 🌍
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+**Status: Work in Progress — Active Development**
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+CurrencyHub is a full-stack currency conversion application being developed using Next.js, TypeScript, and Supabase.
 
-## Features
+The goal is to build a reliable, user-friendly currency converter with secure user authentication, real-time exchange-rate integration, and persistent user data.
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+This repository represents the current development stage of the project. It is **not a finished or production-ready application**. Features are being implemented, tested, improved, and documented step by step.
 
-## Demo
+## 🎯 Project Goals
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+- Convert amounts between different currencies.
+- Retrieve current exchange rates through an external API.
+- Provide user registration, email confirmation, login, and logout.
+- Protect dashboard pages and API routes where authentication is required.
+- Store user information and conversion history in a database.
+- Build a responsive and professional user interface.
+- Prepare the application for deployment and real-world usage.
 
-## Deploy to Vercel
+## 🛠️ Technology Stack
 
-Vercel deployment will guide you through creating a Supabase account and project.
+| Technology | Purpose |
+|---|---|
+| Next.js (App Router) | Application framework and server-side functionality |
+| React | User interface |
+| TypeScript | Type safety |
+| Supabase Auth | User authentication |
+| Supabase Database | Planned persistent data storage |
+| External exchange-rate API | Currency exchange rates |
+| Git & GitHub | Version control and project history |
+| Vercel | Planned deployment |
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+## ✅ Current Progress
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+The following milestones have been implemented or tested:
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+### 1. Project Setup
+- Next.js application initialized.
+- App Router structure established.
+- TypeScript configured.
+- Development environment running locally.
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+### 2. Currency Conversion API
+- Next.js API route for currency conversion implemented.
+- Currency-list API route implemented.
+- External exchange-rate provider integrated.
+- Basic request validation implemented.
+- API health endpoint tested successfully.
+- Successful conversion requests tested.
 
-## Clone and run locally
+### 3. Authentication — Initial Implementation
+- Supabase project connected.
+- Browser and server Supabase clients configured.
+- Signup form implemented.
+- Email confirmation flow implemented.
+- Login form implemented.
+- Logout functionality implemented.
+- Protected dashboard route implemented.
+- Initial signup, confirmation, login/session, and logout flow tested successfully.
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+**Note:** Authentication is functional at the initial implementation stage, but still needs additional security review, edge-case testing, and reliability verification.
 
-2. Create a Next.js app using the Supabase Starter template npx command
+### 4. Dashboard and Interface
+- Initial CurrencyHub dashboard implemented.
+- Authentication-related pages implemented.
+- Basic application navigation and interface established.
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+## 🚧 Remaining Work / Development Roadmap
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+The following tasks are planned or still require completion.
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+### Phase 1 — Database Integration
+- Design the database schema.
+- Create the required Supabase tables.
+- Connect authenticated users to their own data.
+- Implement conversion-history storage.
+- Retrieve and display saved conversion history.
+- Configure Row Level Security (RLS) policies.
+- Test data access and user isolation.
 
-3. Use `cd` to change into the app's directory
+### Phase 2 — Authentication Hardening
+- Investigate and fully verify the earlier PKCE verifier issue.
+- Test signup and email confirmation repeatedly.
+- Test login and logout across fresh browser sessions.
+- Test expired links, invalid credentials, and duplicate accounts.
+- Verify session refresh and cookie handling.
+- Review protected routes and authorization checks.
+- Review authentication-related security settings.
 
-   ```bash
-   cd with-supabase-app
-   ```
+### Phase 3 — Currency Conversion Improvements
+- Improve API error handling.
+- Handle unavailable exchange-rate providers.
+- Add loading, empty, and error states.
+- Handle network failures and invalid API responses.
+- Verify currency conversion accuracy.
+- Review caching and exchange-rate update behavior.
 
-4. Rename `.env.example` to `.env.local` and update the following:
+### Phase 4 — Testing and Quality
+- Test individual components and API routes.
+- Test authentication and database integration together.
+- Test invalid inputs and edge cases.
+- Test responsive layouts on different screen sizes.
+- Run production build checks.
+- Resolve linting and TypeScript errors.
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-```
+### Phase 5 — Deployment and Production Readiness
+- Review environment variables and secret handling.
+- Configure production Supabase URLs and redirect URLs.
+- Deploy through Vercel.
+- Test authentication and conversion on the deployed application.
+- Verify database permissions and user data isolation.
+- Perform a final end-to-end review.
 
-> [!NOTE]
-> This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-> Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-> See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
+## 📌 Current Development Stage
 
-Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+**Last major progress milestone: Initial authentication and currency-conversion API implementation.**
 
-5. You can now run the Next.js local development server:
+The application has moved beyond a basic frontend prototype. It has a working local Next.js application, exchange-rate API integration, an initial Supabase authentication flow, and a protected dashboard.
 
-   ```bash
-   npm run dev
-   ```
+The next major milestone is **Supabase database integration**, followed by authentication hardening and end-to-end testing.
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+## ⚠️ Project Status
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+This project is currently under active development.
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+- Database-backed conversion history is not yet complete.
+- Authentication requires further reliability and security testing.
+- Production deployment and end-to-end verification are pending.
+- Features and architecture may change as development progresses.
 
-## Feedback and issues
+The repository is maintained as a record of the application's development, implementation decisions, improvements, and learning process.
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+## ▶️ Running Locally
 
-## More Supabase examples
+Local setup instructions will be maintained as the project configuration and database integration are finalized.
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+Do not commit `.env.local` or any private API keys, service-role keys, or other secrets to the repository.
+
+---
+
+**CurrencyHub — Building a practical full-stack application, one milestone at a time.**

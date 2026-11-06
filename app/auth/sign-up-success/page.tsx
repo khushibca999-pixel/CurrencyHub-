@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -8,25 +9,39 @@ import {
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <div className="flex flex-col gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">
-                Thank you for signing up!
-              </CardTitle>
-              <CardDescription>Check your email to confirm</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                You&apos;ve successfully signed up. Please check your email to
-                confirm your account before signing in.
-              </p>
-            </CardContent>
-          </Card>
+    <main className="auth-page">
+      <div className="auth-container">
+        <div className="auth-brand">
+          <div className="auth-brand-icon">C</div>
+          <h1 className="auth-brand-name">CurrencyHub</h1>
+          <p className="auth-brand-description">
+            One simple place for your currencies.
+          </p>
         </div>
+
+        <Card className="auth-card">
+          <CardHeader className="auth-card-header">
+            <div className="auth-info-icon">✉</div>
+            <CardTitle className="auth-title">
+              Check your email!
+            </CardTitle>
+            <CardDescription className="auth-description">
+              Your account is almost ready.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="auth-info-content">
+            <p className="auth-info-text">
+              You&apos;ve successfully signed up. Please check your email
+              and click the confirmation link to activate your account.
+            </p>
+          </CardContent>
+        </Card>
+
+        <p className="auth-footer">
+          Secure currency management powered by CurrencyHub
+        </p>
       </div>
-    </div>
+    </main>
   );
 }
