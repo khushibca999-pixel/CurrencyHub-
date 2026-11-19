@@ -1,9 +1,12 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+
 
 import { createClient } from "@/lib/supabase/server";
 import CurrencyHubDashboard from "@/components/currencyhub-dashboard";
+export const instant = false;
 
-export default async function ProtectedPage() {
+async function ProtectedDashboard() {
   // Create Supabase server client.
   const supabase = await createClient();
 
@@ -23,4 +26,12 @@ export default async function ProtectedPage() {
 
   // Pass the email to our interactive dashboard.
   return <CurrencyHubDashboard userEmail={userEmail} />;
+}
+
+export default function ProtectedPage() {
+  return (
+    <Suspense fallback={<main>Checking your session...</main>}>
+      <ProtectedDashboard />
+    </Suspense>
+  );
 }
