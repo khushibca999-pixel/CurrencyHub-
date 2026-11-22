@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import Link from "next/link";
 import { LogoutButton } from "@/components/logout-button";
+import ConversionHistory from "@/components/conversion-history";
 
 // Each currency has a three-letter code and a readable name.
 type CurrencyList = Record<string, string>;
@@ -119,7 +121,8 @@ export default function CurrencyHubDashboard({userEmail,}: CurrencyHubDashboardP
   }, [fromCurrency, toCurrency]);
 
   // STEP 2: Request a conversion from our Next.js API.
-  async function handleConvert(event: React.FormEvent<HTMLFormElement>) {
+  async function handleConvert(event: {preventDefault: () => void;}) 
+  {
     event.preventDefault();
 
     setConversionError("");
@@ -201,6 +204,30 @@ export default function CurrencyHubDashboard({userEmail,}: CurrencyHubDashboardP
       }
 
       setResult(responseData);
+
+      // Save this successful conversion to the user's history.
+      try {
+        const historyResponse = await fetch("/api/history", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from_currency: responseData.from,
+            to_currency: responseData.to,
+            amount: responseData.amount,
+            converted_amount: responseData.convertedAmount,
+            exchange_rate: responseData.rate,
+          }),
+        });
+
+        if (!historyResponse.ok) {
+          console.error("Could not save conversion history.");
+        }
+      } catch (historyError) {
+        console.error("History saving failed:", historyError);
+      }
+
     } catch (error) {
       setConversionError(
         error instanceof Error
@@ -337,10 +364,10 @@ export default function CurrencyHubDashboard({userEmail,}: CurrencyHubDashboardP
             <article className="summary-card">
               <div className="summary-top">
                 <span>Conversion history</span>
-                <span className="summary-icon orange">◷</span>
+                <span className="summary-icon orange">↻</span>
               </div>
-              <h2>Coming soon</h2>
-              <p>Save conversions to your account</p>
+              <h2>Available</h2>
+              <p>Review and manage your saved conversions</p>
             </article>
           </section>
 
@@ -561,24 +588,16 @@ export default function CurrencyHubDashboard({userEmail,}: CurrencyHubDashboardP
             </div>
           </section>
 
-          {/* History placeholder: database integration comes in Stage 6. */}
+          {/*  Conversion history */}
           <section className="history-card" id="history">
             <div className="history-heading">
               <div>
                 <h2>Recent conversions</h2>
                 <p>Your latest currency conversions will appear here.</p>
               </div>
-
-              <span className="history-count">0 records</span>
             </div>
 
-            <div className="empty-history">
-              <div className="empty-history-icon">◷</div>
-              <strong>No saved conversions yet</strong>
-              <p>
-                Conversion history will be saved to your account in Stage 6.
-              </p>
-            </div>
+           <ConversionHistory />
           </section>
 
           <footer className="dashboard-footer">
